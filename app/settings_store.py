@@ -32,7 +32,9 @@ class SettingsStore:
 
     def save(self):
         try:
-            os.makedirs(os.path.dirname(self.path), exist_ok=True)
+            dir_path = os.path.dirname(self.path)
+            if dir_path:
+                os.makedirs(dir_path, exist_ok=True)
             with open(self.path, "w", encoding="utf-8") as f:
                 json.dump(self.data, f, ensure_ascii=False, indent=2)
         except Exception:

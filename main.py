@@ -71,7 +71,7 @@ class FileShareApp(MDApp):
         # المظهر
         self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_palette = "Teal"
-        self.theme_cls.material_style = "M3"
+        # Note: material_style = "M3" is only available in KivyMD 2.0+
 
         # الإعدادات المحفوظة (use app data dir which doesn't need permissions)
         config_path = os.path.join(self.user_data_dir, "config.json")
