@@ -45,14 +45,7 @@ jobs:
         
     - name: Build APK
       run: |
-        buildozer android debug 2>&1 | tee build.log
-
-    - name: Upload Build Log
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-log
-        path: build.log
+        buildozer android debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
