@@ -41,7 +41,10 @@ class ReceiveTab(MDBoxLayout):
             return
         self.ids.files_title.text = app.tr("shared_files")
         self.ids.refresh_btn.text = app.tr("refresh")
-        self.ids.folder_value.text = app.server.shared_dir
+        if app.server:
+            self.ids.folder_value.text = app.server.shared_dir
+        else:
+            self.ids.folder_value.text = ""
         self.refresh_list()
 
     def refresh_list(self):
@@ -50,6 +53,11 @@ class ReceiveTab(MDBoxLayout):
             return
         container = self.ids.files_list
         container.clear_widgets()
+
+        if not app.server:
+            self.ids.empty_label.text = app.tr("no_files")
+            self.ids.empty_label.opacity = 1
+            return
 
         files = app.server.list_files()
         if not files:
@@ -68,6 +76,8 @@ class ReceiveTab(MDBoxLayout):
 
     def delete(self, name):
         app = MDApp.get_running_app()
+        if not app.server:
+            return
         if app.server.delete_file(name):
             app.toast(app.tr("deleted"))
         self.refresh_list()

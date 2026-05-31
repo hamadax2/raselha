@@ -33,6 +33,16 @@ class HomeTab(MDBoxLayout):
         app = MDApp.get_running_app()
         if not self.ids:
             return
+        # Check if server is initialized
+        if not app.server:
+            self.ids.status_value.text = app.tr("server_stopped")
+            self.ids.status_value.theme_text_color = "Custom"
+            self.ids.status_value.text_color = (0.83, 0.18, 0.18, 1)
+            self.ids.toggle_btn.text = app.tr("start_server")
+            self.ids.ip_value.text = get_local_ip()
+            self.ids.port_value.text = str(app.settings.get("port"))
+            return
+            
         running = app.server.is_running
         self.ids.status_value.text = app.tr(
             "server_running" if running else "server_stopped"
@@ -48,6 +58,8 @@ class HomeTab(MDBoxLayout):
     # ------- الأحداث -------
     def toggle_server(self):
         app = MDApp.get_running_app()
+        if not app.server:
+            return
         if app.server.is_running:
             app.server.stop()
         else:
