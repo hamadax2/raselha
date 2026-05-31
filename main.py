@@ -11,9 +11,24 @@ Built entirely in Python using Kivy and KivyMD only.
 """
 import os
 
+# Android specific setup - must be done before importing kivy
+from kivy.utils import platform
+if platform == "android":
+    # Request Android permissions early
+    try:
+        from android.permissions import request_permissions, Permission
+        request_permissions([
+            Permission.INTERNET,
+            Permission.READ_EXTERNAL_STORAGE,
+            Permission.WRITE_EXTERNAL_STORAGE,
+            Permission.ACCESS_NETWORK_STATE,
+            Permission.ACCESS_WIFI_STATE,
+        ])
+    except Exception as e:
+        print(f"Permission request error: {e}")
+
 from kivy.core.text import LabelBase
 from kivy.lang import Builder
-from kivy.utils import platform
 
 from kivymd.app import MDApp
 
@@ -42,11 +57,14 @@ def _register_arabic_font():
     regular = os.path.join(FONT_DIR, "Cairo-Regular.ttf")
     bold = os.path.join(FONT_DIR, "Cairo-Bold.ttf")
     if os.path.exists(regular):
-        LabelBase.register(
-            name="Roboto",
-            fn_regular=regular,
-            fn_bold=bold if os.path.exists(bold) else regular,
-        )
+        try:
+            LabelBase.register(
+                name="Roboto",
+                fn_regular=regular,
+                fn_bold=bold if os.path.exists(bold) else regular,
+            )
+        except Exception as e:
+            print(f"Font registration error: {e}")
 
 
 class FileShareApp(MDApp):
@@ -90,11 +108,18 @@ class FileShareApp(MDApp):
                 from android.storage import primary_external_storage_path  # type: ignore
                 base = primary_external_storage_path()
                 path = os.path.join(base, "FileShare")
-            except Exception:
+            except Exception as e:
+                print(f"Android storage error: {e}")
                 path = os.path.join(self.user_data_dir, "FileShare")
         else:
             path = os.path.join(os.path.expanduser("~"), "FileShare")
-        os.makedirs(path, exist_ok=True)
+        try:
+            os.makedirs(path, exist_ok=True)
+        except Exception as e:
+            print(f"Directory creation error: {e}")
+            # Fallback to app data directory
+            path = os.path.join(self.user_data_dir, "FileShare")
+            os.makedirs(path, exist_ok=True)
         return path
 
     # ------- الترجمة -------
