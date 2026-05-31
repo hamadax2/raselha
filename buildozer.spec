@@ -2,7 +2,6 @@
 #
 # It largely follows the syntax of an .ini file.
 # See the end of the file for more details and warnings about common mistakes.
-
 [app]
 
 # (str) Title of your application
