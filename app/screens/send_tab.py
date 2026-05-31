@@ -44,7 +44,17 @@ class SendTab(MDBoxLayout):
 
     # ------- اختيار الملفات -------
     def open_file_manager(self):
-        start = os.path.expanduser("~")
+        from kivy.utils import platform
+        if platform == "android":
+            try:
+                # Use app's internal storage as starting point on Android
+                from android.storage import app_storage_path
+                start = app_storage_path()
+            except Exception:
+                start = "/sdcard"
+        else:
+            start = os.path.expanduser("~")
+        
         if not os.path.isdir(start):
             start = "/"
         self.file_manager.show(start)

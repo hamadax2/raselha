@@ -16,22 +16,7 @@ import sys
 os.environ.setdefault('KIVY_LOG_LEVEL', 'warning')
 
 from kivy.utils import platform
-
-# Android specific setup - must be done before other kivy imports
-if platform == "android":
-    # Request Android permissions early
-    try:
-        from android.permissions import request_permissions, Permission
-        request_permissions([
-            Permission.INTERNET,
-            Permission.READ_EXTERNAL_STORAGE,
-            Permission.WRITE_EXTERNAL_STORAGE,
-            Permission.ACCESS_NETWORK_STATE,
-            Permission.ACCESS_WIFI_STATE,
-        ])
-    except Exception as e:
-        print(f"[v0] Permission request error: {e}")
-
+from kivy.clock import Clock
 from kivy.core.text import LabelBase
 from kivy.lang import Builder
 
@@ -67,14 +52,16 @@ def _register_arabic_font():
                 fn_regular=regular,
                 fn_bold=regular,  # Use regular as bold since bold is not available
             )
-            print(f"[v0] Font registered successfully: {regular}")
         except Exception as e:
-            print(f"[v0] Font registration error: {e}")
-    else:
-        print(f"[v0] Font file not found: {regular}")
-
+            pass
+    
 
 class FileShareApp(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.server = None
+        self._permissions_granted = False
+    
     def build(self):
         self.title = "File Share"
 
@@ -86,16 +73,12 @@ class FileShareApp(MDApp):
         self.theme_cls.primary_palette = "Teal"
         self.theme_cls.material_style = "M3"
 
-        # الإعدادات المحفوظة
+        # الإعدادات المحفوظة (use app data dir which doesn't need permissions)
         config_path = os.path.join(self.user_data_dir, "config.json")
         self.settings = SettingsStore(config_path)
         self.lang = self.settings.get("language")
         if self.settings.get("dark_mode"):
             self.theme_cls.theme_style = "Dark"
-
-        # مجلد المشاركة الذي يستقبل الملفات
-        shared_dir = self._shared_dir()
-        self.server = FtpServerManager(shared_dir, port=int(self.settings.get("port")))
 
         # تحميل قواعد التبويبات المنفصلة أولاً
         for kv in ("home.kv", "send.kv", "receive.kv", "settings.kv"):
@@ -106,27 +89,71 @@ class FileShareApp(MDApp):
         return self.root_widget
 
     def on_start(self):
-        self.refresh_ui()
+        # Request permissions on Android after UI is built
+        if platform == "android":
+            self._request_android_permissions()
+        else:
+            self._init_after_permissions()
+
+    def _request_android_permissions(self):
+        """Request Android permissions with callback."""
+        try:
+            from android.permissions import request_permissions, Permission
+            
+            def callback(permissions, results):
+                # Check if all permissions were granted
+                if all(results):
+                    self._permissions_granted = True
+                else:
+                    self._permissions_granted = False
+                # Initialize app after permissions dialog is done
+                Clock.schedule_once(lambda dt: self._init_after_permissions(), 0.5)
+            
+            request_permissions([
+                Permission.INTERNET,
+                Permission.READ_EXTERNAL_STORAGE,
+                Permission.WRITE_EXTERNAL_STORAGE,
+                Permission.ACCESS_NETWORK_STATE,
+                Permission.ACCESS_WIFI_STATE,
+            ], callback)
+        except Exception as e:
+            # If permission request fails, try to continue anyway
+            Clock.schedule_once(lambda dt: self._init_after_permissions(), 0.5)
+
+    def _init_after_permissions(self):
+        """Initialize storage and server after permissions are handled."""
+        try:
+            # مجلد المشاركة الذي يستقبل الملفات
+            shared_dir = self._shared_dir()
+            self.server = FtpServerManager(shared_dir, port=int(self.settings.get("port")))
+            self.refresh_ui()
+        except Exception as e:
+            # Fallback to app data directory
+            shared_dir = os.path.join(self.user_data_dir, "FileShare")
+            os.makedirs(shared_dir, exist_ok=True)
+            self.server = FtpServerManager(shared_dir, port=int(self.settings.get("port")))
+            self.refresh_ui()
 
     # ------- المجلدات -------
     def _shared_dir(self):
         if platform == "android":
             try:
-                from android.storage import primary_external_storage_path  # type: ignore
+                from android.storage import primary_external_storage_path
                 base = primary_external_storage_path()
-                path = os.path.join(base, "FileShare")
+                if base:
+                    path = os.path.join(base, "FileShare")
+                    os.makedirs(path, exist_ok=True)
+                    return path
             except Exception as e:
-                print(f"Android storage error: {e}")
-                path = os.path.join(self.user_data_dir, "FileShare")
+                pass
+        
+        # Fallback for non-Android or if external storage fails
+        if platform == "android":
+            path = os.path.join(self.user_data_dir, "FileShare")
         else:
             path = os.path.join(os.path.expanduser("~"), "FileShare")
-        try:
-            os.makedirs(path, exist_ok=True)
-        except Exception as e:
-            print(f"Directory creation error: {e}")
-            # Fallback to app data directory
-            path = os.path.join(self.user_data_dir, "FileShare")
-            os.makedirs(path, exist_ok=True)
+        
+        os.makedirs(path, exist_ok=True)
         return path
 
     # ------- الترجمة -------
@@ -142,6 +169,8 @@ class FileShareApp(MDApp):
 
     def refresh_ui(self):
         """تحديث كل النصوص في الواجهة بعد تغيير اللغة."""
+        if not self.root_widget:
+            return
         ids = self.root_widget.ids
         ids.top_bar.title = self.tr("app_title")
         ids.nav_home.text = self.tr("tab_home")
@@ -161,8 +190,9 @@ class FileShareApp(MDApp):
 
     # ------- الخادم -------
     def start_server(self):
-        self.server.port = int(self.settings.get("port"))
-        self.server.start()
+        if self.server:
+            self.server.port = int(self.settings.get("port"))
+            self.server.start()
 
     # ------- رسائل سريعة -------
     def toast(self, message):
@@ -170,11 +200,12 @@ class FileShareApp(MDApp):
             from kivymd.uix.snackbar import Snackbar
             Snackbar(text=message).open()
         except Exception:
-            print(message)
+            pass
 
     def on_stop(self):
         try:
-            self.server.stop()
+            if self.server:
+                self.server.stop()
         except Exception:
             pass
 
