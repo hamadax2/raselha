@@ -42,7 +42,7 @@ version = 2.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,hostpython3,kivy==2.3.0,kivymd==1.1.1,pyftpdlib,arabic_reshaper,python-bidi,plyer,pillow,pyjnius,android
+requirements = python3,hostpython3,kivy==2.2.1,kivymd==1.1.1,pyftpdlib,arabic_reshaper,python-bidi,plyer,pillow,pyjnius,android
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -329,7 +329,7 @@ android.allow_backup = True
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-p4a.branch = develop
+p4a.branch = master
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD
