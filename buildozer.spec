@@ -18,10 +18,10 @@ package.domain = org.raselha
 source.dir = .
 
 # (list) Source files to include (leave empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,ttf,json
+source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,json
 
 # (list) List of inclusions using pattern matching
-source.include_patterns = assets/*,assets/**/*,kv/*
+source.include_patterns = assets/*,assets/**/*,kv/*,app/*,app/**/*
 
 # (list) Source files to exclude (leave empty to not exclude anything)
 #source.exclude_exts = spec
@@ -42,7 +42,7 @@ version = 2.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,hostpython3,kivy==2.3.0,kivymd==1.2.0,pyftpdlib,arabic_reshaper,python-bidi,plyer,pillow,android
+requirements = python3,hostpython3,kivy==2.3.0,kivymd==1.1.1,pyftpdlib,arabic_reshaper,python-bidi,plyer,pillow,pyjnius,android
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

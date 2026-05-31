@@ -10,9 +10,14 @@ Built entirely in Python using Kivy and KivyMD only.
 وإدارة خادم FTP والتبديل بين العربية والإنجليزية.
 """
 import os
+import sys
 
-# Android specific setup - must be done before importing kivy
+# Set environment variables before any kivy imports
+os.environ.setdefault('KIVY_LOG_LEVEL', 'warning')
+
 from kivy.utils import platform
+
+# Android specific setup - must be done before other kivy imports
 if platform == "android":
     # Request Android permissions early
     try:
@@ -25,7 +30,7 @@ if platform == "android":
             Permission.ACCESS_WIFI_STATE,
         ])
     except Exception as e:
-        print(f"Permission request error: {e}")
+        print(f"[v0] Permission request error: {e}")
 
 from kivy.core.text import LabelBase
 from kivy.lang import Builder
@@ -55,16 +60,18 @@ def _register_arabic_font():
     ضع ملفات الخط داخل assets/fonts/ (مثل خط Cairo).
     """
     regular = os.path.join(FONT_DIR, "Cairo-Regular.ttf")
-    bold = os.path.join(FONT_DIR, "Cairo-Bold.ttf")
     if os.path.exists(regular):
         try:
             LabelBase.register(
                 name="Roboto",
                 fn_regular=regular,
-                fn_bold=bold if os.path.exists(bold) else regular,
+                fn_bold=regular,  # Use regular as bold since bold is not available
             )
+            print(f"[v0] Font registered successfully: {regular}")
         except Exception as e:
-            print(f"Font registration error: {e}")
+            print(f"[v0] Font registration error: {e}")
+    else:
+        print(f"[v0] Font file not found: {regular}")
 
 
 class FileShareApp(MDApp):
