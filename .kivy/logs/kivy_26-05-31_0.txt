@@ -1,0 +1,48 @@
+[INFO   ] Logger: Record log in /storage/emulated/0/Download/file-sharing-app/.kivy/logs/kivy_26-05-31_0.txt
+[DEBUG  ] Config: Upgrading from 0 to 1
+[WARNING] Config: Upgrading configuration in progress.
+[WARNING] Config: Older configuration version detected (0 instead of 27)
+[INFO   ] Kivy: v2.3.1
+[INFO   ] Kivy: Installed at "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/__init__.py"
+[INFO   ] Python: v3.13.2 (main, Apr 27 2025, 04:34:27) [GCC 11.4.0]
+[INFO   ] Python: Interpreter at "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/bin/python3"
+[INFO   ] Logger: Purge log fired. Processing...
+[INFO   ] Logger: Purge finished!
+[INFO   ] Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+[INFO   ] Text: Provider: sdl2
+[INFO   ] Factory: 195 symbols loaded
+[INFO   ] KivyMD: 1.2.0, git-Unknown, 2026-05-30 (installed at "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivymd/__init__.py")
+[WARNING] KivyMD: Version 1.2.0 is deprecated and is no longer supported. Use KivyMD version 2.0.0 from the master branch (pip install https://github.com/kivymd/KivyMD/archive/master.zip)
+[INFO   ] Window: Provider: sdl2
+[INFO   ] GL: Using the "OpenGL ES 2" graphics system
+[INFO   ] GL: Backend used <sdl2>
+[INFO   ] GL: OpenGL version <b'OpenGL ES 3.2 V@269.0 (GIT@6ac4b6f, Ia11ce2d146) (Date:12/16/20)'>
+[INFO   ] GL: OpenGL vendor <b'Qualcomm'>
+[INFO   ] GL: OpenGL renderer <b'Adreno (TM) 506'>
+[INFO   ] GL: OpenGL parsed version: 3, 2
+[INFO   ] GL: Texture max size <16384>
+[INFO   ] GL: Texture max units <16>
+[INFO   ] Window: auto add sdl2 input provider
+[INFO   ] Window: virtual keyboard not allowed, single mode, not docked
+[INFO   ] Clipboard: Provider: android
+[INFO   ] GL: NPOT texture support is available
+[WARNING] Base: Unknown <android> provider
+[INFO   ] Base: Start application main loop
+[WARNING] Deprecated property "<NumericProperty name=width_mult>" of object "<kivymd.uix.toolbar.toolbar.OverFlowMenu object at 0x75ba3b4520>" has been set, it will be removed in a future version
+[WARNING] stderr: /data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/pyftpdlib/authorizers.py:99: RuntimeWarning: write permissions assigned to anonymous user.
+[WARNING] stderr:   self._check_permissions(username, perm)
+[INFO   ] concurrency model: async
+[INFO   ] masquerade (NAT) address: None
+[INFO   ] passive ports: 60000->60009
+[DEBUG  ] poller: 'pyftpdlib.ioloop.Epoll'
+[DEBUG  ] authorizer: 'pyftpdlib.authorizers.DummyAuthorizer'
+[DEBUG  ] use sendfile(): True
+[DEBUG  ] handler: 'pyftpdlib.handlers.ftp.control.type'
+[DEBUG  ] max connections: 64
+[DEBUG  ] max connections per ip: 16
+[DEBUG  ] timeout: 300
+[DEBUG  ] banner: 'File Share FTP server ready.'
+[DEBUG  ] max login attempts: 3
+[INFO   ] >>> starting FTP server on 0.0.0.0:2121, pid=12839 <<<
+[DEBUG  ] [debug] closing IOLoop (<pyftpdlib.ioloop.Epoll (fds=1, tasks=0) at 0x75ba050440>)
+[INFO   ] Base: Leaving application in progress...

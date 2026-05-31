@@ -1,0 +1,51 @@
+# الواجهة الرئيسية - root layout with bottom navigation
+# ملاحظة: تُحمّل ملفات التبويبات (home / send / receive / settings) قبل هذا الملف.
+
+MDScreen:
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            id: top_bar
+            title: "File Share"
+            elevation: 3
+            pos_hint: {"top": 1}
+
+        MDBottomNavigation:
+            id: bottom_nav
+            panel_color: app.theme_cls.primary_color
+            selected_color_background: app.theme_cls.primary_dark
+            text_color_active: 1, 1, 1, 1
+
+            MDBottomNavigationItem:
+                id: nav_home
+                name: "home"
+                text: "Server"
+                icon: "server-network"
+                HomeTab:
+                    id: home_tab
+
+            MDBottomNavigationItem:
+                id: nav_send
+                name: "send"
+                text: "Send"
+                icon: "send"
+                SendTab:
+                    id: send_tab
+
+            MDBottomNavigationItem:
+                id: nav_receive
+                name: "receive"
+                text: "Files"
+                icon: "folder-download"
+                ReceiveTab:
+                    id: receive_tab
+
+            MDBottomNavigationItem:
+                id: nav_settings
+                name: "settings"
+                text: "Settings"
+                icon: "cog"
+                SettingsTab:
+                    id: settings_tab

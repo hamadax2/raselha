@@ -1,0 +1,70 @@
+# تبويب الإرسال - Send tab layout
+
+<SendTab>:
+    orientation: "vertical"
+    padding: "16dp"
+    spacing: "16dp"
+
+    MDCard:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "12dp"
+        size_hint_y: None
+        height: self.minimum_height
+        radius: [16, 16, 16, 16]
+        elevation: 2
+
+        MDLabel:
+            id: connect_title
+            text: "Connect To A Device"
+            font_style: "H6"
+            adaptive_height: True
+
+        MDTextField:
+            id: host_field
+            hint_text: "Receiver IP Address"
+            mode: "rectangle"
+            input_filter: None
+
+        MDTextField:
+            id: port_field
+            hint_text: "Port"
+            text: "2121"
+            mode: "rectangle"
+            input_filter: "int"
+
+        MDBoxLayout:
+            adaptive_height: True
+            spacing: "12dp"
+
+            MDRaisedButton:
+                id: pick_btn
+                text: "Pick Files"
+                on_release: root.open_file_manager()
+
+            MDRaisedButton:
+                id: send_btn
+                text: "Send Files"
+                on_release: root.send()
+
+    MDCard:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "8dp"
+        radius: [16, 16, 16, 16]
+        elevation: 2
+
+        MDLabel:
+            id: selected_title
+            text: "Selected Files"
+            font_style: "Subtitle1"
+            bold: True
+            adaptive_height: True
+
+        ScrollView:
+            MDLabel:
+                id: selection_label
+                text: "No files selected yet"
+                theme_text_color: "Hint"
+                size_hint_y: None
+                height: self.texture_size[1]
