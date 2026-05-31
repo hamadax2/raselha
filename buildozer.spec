@@ -16,7 +16,7 @@ source.include_patterns = kv/*,app/*,assets/*
 version = 1.0
 
 # المتطلبات - Requirements
-requirements = python3,kivy==2.3.0,kivymd==1.2.0,pyftpdlib,arabic_reshaper,python-bidi,plyer
+requirements = python3==3.9.0,kivy==2.3.0,kivymd==1.2.0,pyftpdlib,arabic_reshaper,python-bidi,plyer
 
 # التوجيه - Orientation
 orientation = portrait
