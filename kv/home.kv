@@ -1,0 +1,80 @@
+# تبويب الخادم - Home / Server tab layout
+
+<HomeTab>:
+    orientation: "vertical"
+    padding: "16dp"
+    spacing: "16dp"
+    adaptive_height: False
+
+    MDCard:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "12dp"
+        size_hint_y: None
+        height: self.minimum_height
+        radius: [16, 16, 16, 16]
+        elevation: 2
+
+        MDLabel:
+            id: section_status
+            text: "Server Status"
+            font_style: "H6"
+            adaptive_height: True
+
+        MDLabel:
+            id: status_value
+            text: "Server Stopped"
+            font_style: "Subtitle1"
+            bold: True
+            adaptive_height: True
+
+        MDRaisedButton:
+            id: toggle_btn
+            text: "Start Server"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.toggle_server()
+
+    MDCard:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "10dp"
+        size_hint_y: None
+        height: self.minimum_height
+        radius: [16, 16, 16, 16]
+        elevation: 2
+
+        MDBoxLayout:
+            adaptive_height: True
+            spacing: "8dp"
+            MDLabel:
+                id: ip_label
+                text: "Your IP Address"
+                adaptive_height: True
+            MDLabel:
+                id: ip_value
+                text: "0.0.0.0"
+                halign: "right"
+                bold: True
+                adaptive_height: True
+
+        MDBoxLayout:
+            adaptive_height: True
+            spacing: "8dp"
+            MDLabel:
+                id: port_label
+                text: "Port"
+                adaptive_height: True
+            MDLabel:
+                id: port_value
+                text: "2121"
+                halign: "right"
+                bold: True
+                adaptive_height: True
+
+    MDLabel:
+        id: hint_label
+        text: ""
+        font_style: "Caption"
+        theme_text_color: "Hint"
+
+    Widget:
