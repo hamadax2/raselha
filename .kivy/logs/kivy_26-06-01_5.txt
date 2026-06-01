@@ -1,0 +1,58 @@
+[INFO   ] Logger: Record log in /storage/emulated/0/file-sharing-app/.kivy/logs/kivy_26-06-01_5.txt
+[INFO   ] Kivy: v2.3.1
+[INFO   ] Kivy: Installed at "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/__init__.py"
+[INFO   ] Python: v3.13.2 (main, Apr 27 2025, 04:34:27) [GCC 11.4.0]
+[INFO   ] Python: Interpreter at "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/bin/python3"
+[INFO   ] Logger: Purge log fired. Processing...
+[INFO   ] Logger: Purge finished!
+[INFO   ] Image: Providers: img_tex, img_dds, img_sdl2, img_pil (img_ffpyplayer ignored)
+[INFO   ] Text: Provider: sdl2
+[INFO   ] Factory: 195 symbols loaded
+[INFO   ] KivyMD: 1.2.0, git-Unknown, 2026-05-31 (installed at "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivymd/__init__.py")
+[WARNING] KivyMD: Version 1.2.0 is deprecated and is no longer supported. Use KivyMD version 2.0.0 from the master branch (pip install https://github.com/kivymd/KivyMD/archive/master.zip)
+[INFO   ] Window: Provider: sdl2
+[INFO   ] GL: Using the "OpenGL ES 2" graphics system
+[INFO   ] GL: Backend used <sdl2>
+[INFO   ] GL: OpenGL version <b'OpenGL ES 3.2 V@269.0 (GIT@6ac4b6f, Ia11ce2d146) (Date:12/16/20)'>
+[INFO   ] GL: OpenGL vendor <b'Qualcomm'>
+[INFO   ] GL: OpenGL renderer <b'Adreno (TM) 506'>
+[INFO   ] GL: OpenGL parsed version: 3, 2
+[INFO   ] GL: Texture max size <16384>
+[INFO   ] GL: Texture max units <16>
+[INFO   ] Window: auto add sdl2 input provider
+[INFO   ] Window: virtual keyboard not allowed, single mode, not docked
+[INFO   ] Clipboard: Provider: android
+[INFO   ] GL: NPOT texture support is available
+[WARNING] stderr: Traceback (most recent call last):
+[WARNING] stderr:   File "kivy/properties.pyx", line 961, in kivy.properties.ObservableDict.__getattr__
+[WARNING] stderr: KeyError: 'pick_btn'
+[WARNING] stderr: 
+[WARNING] stderr: During handling of the above exception, another exception occurred:
+[WARNING] stderr: 
+[WARNING] stderr: Traceback (most recent call last):
+[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app/main.py", line 152, in <module>
+[WARNING] stderr:     FileShareApp().run()
+[WARNING] stderr:     ~~~~~~~~~~~~~~~~~~^^
+[WARNING] stderr:   File "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/app.py", line 955, in run
+[WARNING] stderr:     self._run_prepare()
+[WARNING] stderr:     ~~~~~~~~~~~~~~~~~^^
+[WARNING] stderr:   File "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/app.py", line 925, in _run_prepare
+[WARNING] stderr:     root = self.build()
+[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app/main.py", line 81, in build
+[WARNING] stderr:     self.root_widget = Builder.load_file(os.path.join(KV_DIR, "main.kv"))
+[WARNING] stderr:                        ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[WARNING] stderr:   File "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/lang/builder.py", line 310, in load_file
+[WARNING] stderr:     return self.load_string(data, **kwargs)
+[WARNING] stderr:            ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+[WARNING] stderr:   File "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/lang/builder.py", line 417, in load_string
+[WARNING] stderr:     child.dispatch('on_kv_post', widget)
+[WARNING] stderr:     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+[WARNING] stderr:   File "kivy/_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app/app/screens/send_tab.py", line 31, in on_kv_post
+[WARNING] stderr:     self.refresh_text()
+[WARNING] stderr:     ~~~~~~~~~~~~~~~~~^^
+[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app/app/screens/send_tab.py", line 40, in refresh_text
+[WARNING] stderr:     self.ids.pick_btn.text = app.tr("pick_files")
+[WARNING] stderr:     ^^^^^^^^^^^^^^^^^
+[WARNING] stderr:   File "kivy/properties.pyx", line 964, in kivy.properties.ObservableDict.__getattr__
+[WARNING] stderr: AttributeError: 'super' object has no attribute '__getattr__'. Did you mean: '__setattr__'?

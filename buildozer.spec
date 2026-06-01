@@ -18,10 +18,10 @@ package.domain = org.raselha
 source.dir = .
 
 # (list) Source files to include (leave empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,ttf,json
+source.include_exts = py,png,jpg,kv,atlas
 
 # (list) List of inclusions using pattern matching
-source.include_patterns = assets/*,assets/**/*,kv/*
+#source.include_patterns = assets/*,images/*.png
 
 # (list) Source files to exclude (leave empty to not exclude anything)
 #source.exclude_exts = spec
@@ -42,7 +42,7 @@ version = 2.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy==2.3.0,kivymd==1.2.0,pyftpdlib,arabic_reshaper,python-bidi,plyer,pillow
+requirements = python3==3.9.10,hostpython3==3.9.10,kivy==2.2.0,kivymd==1.1.1,pyftpdlib==1.5.9,arabic_reshaper==3.0.0,python-bidi==0.4.2,plyer==2.1.0
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -103,25 +103,25 @@ fullscreen = 0
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE
+android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,MANAGE_EXTERNAL_STORAGE
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-android.api = 33
+#android.api = 31
 
 # (int) Minimum API your APK / AAB will support.
-android.minapi = 21
+#android.minapi = 21
 
 # (int) Android SDK version to use
 #android.sdk = 20
 
 # (str) Android NDK version to use
-android.ndk = 25b
+#android.ndk = 23b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
-android.ndk_api = 21
+#android.ndk_api = 21
 
 # (str) Android NDK directory (if empty, it will be automatically downloaded.)
 #android.ndk_path =
@@ -278,7 +278,7 @@ android.accept_sdk_license = True
 #android.uses_library =
 
 # (str) Android logcat filters to use
-#android.logcat_filters = *:S python:D
+android.logcat_filters = *:S python:D
 
 # (bool) Android logcat only display log for activity's pid
 #android.logcat_pid_only = False
@@ -329,7 +329,7 @@ android.allow_backup = True
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-p4a.branch = develop
+#p4a.branch = master
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD
@@ -345,7 +345,7 @@ p4a.branch = develop
 
 # (str) Bootstrap to use for android builds
 # Run "buildozer android p4a -- bootstraps" for a list of valid values.
-p4a.bootstrap = sdl2
+# p4a.bootstrap = sdl2
 
 # (int) port number to specify an explicit --port= p4a argument (eg for bootstrap flask)
 #p4a.port =
@@ -369,18 +369,18 @@ p4a.bootstrap = sdl2
 # (str) Path to a custom kivy-ios folder
 #ios.kivy_ios_dir = ../kivy-ios
 # Alternately, specify the URL and branch of a git checkout:
-#ios.kivy_ios_url = https://github.com/kivy/kivy-ios
-#ios.kivy_ios_branch = master
+ios.kivy_ios_url = https://github.com/kivy/kivy-ios
+ios.kivy_ios_branch = master
 
 # Another platform dependency: ios-deploy
 # Uncomment to use a custom checkout
 #ios.ios_deploy_dir = ../ios_deploy
 # Or specify URL and branch
-#ios.ios_deploy_url = https://github.com/phonegap/ios-deploy
-#ios.ios_deploy_branch = 1.12.2
+ios.ios_deploy_url = https://github.com/phonegap/ios-deploy
+ios.ios_deploy_branch = 1.12.2
 
 # (bool) Whether or not to sign the code
-#ios.codesign.allowed = false
+ios.codesign.allowed = false
 
 # (str) Name of the certificate to use for signing the debug version
 # Get a list of available identities: buildozer ios list_identities
@@ -473,4 +473,3 @@ warn_on_root = 1
 #        buildozer --profile demo android debug
 #
 #   Environment variable overrides have priority over profile overrides.
-

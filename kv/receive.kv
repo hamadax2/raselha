@@ -1,24 +1,19 @@
-# تبويب الملفات المستلمة - Files tab layout
-
 <ReceiveTab>:
     orientation: "vertical"
     padding: "16dp"
     spacing: "12dp"
 
     MDBoxLayout:
-        adaptive_height: True
         spacing: "12dp"
 
         MDLabel:
             id: files_title
             text: "Received Files"
             font_style: "H6"
-            adaptive_height: True
 
         MDIconButton:
             id: refresh_btn
             icon: "refresh"
-            text: ""
             on_release: root.refresh_list()
 
     MDLabel:
@@ -26,7 +21,6 @@
         text: ""
         font_style: "Caption"
         theme_text_color: "Hint"
-        adaptive_height: True
 
     MDCard:
         radius: [16, 16, 16, 16]
