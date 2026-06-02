@@ -42,7 +42,7 @@ version = 2.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.9.10,hostpython3==3.9.10,kivy==2.2.0,kivymd==1.1.1,pyftpdlib==1.5.9,arabic_reshaper==3.0.0,python-bidi==0.4.2,plyer==2.1.0
+requirements = python3==3.9.10,hostpython3==3.9.10,kivy==2.2.0,kivymd==1.1.1,pillow,pyftpdlib==1.5.9,arabic_reshaper==3.0.0,python-bidi==0.4.2,plyer==2.1.0
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -103,7 +103,7 @@ fullscreen = 0
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,MANAGE_EXTERNAL_STORAGE
+android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
