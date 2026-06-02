@@ -78,7 +78,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: FileShare-APK
-        path: **/*.apk
+        path: 
+          **/*.apk
     
         if-no-files-found: error
 
