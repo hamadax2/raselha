@@ -78,9 +78,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: FileShare-APK
-        path:
-         bin/**/*.apk
-         bin/**/*.aab
+        path: **/*.apk
+    
         if-no-files-found: error
 
     # ── 9. Upload build log on failure (helps debugging) ────────────────────
