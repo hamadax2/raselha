@@ -1,50 +1,110 @@
+# This .spec config file tells Buildozer an app's requirements for being built.
+#
+# It largely follows the syntax of an .ini file.
+# See the end of the file for more details and warnings about common mistakes.
+
 [app]
 
+# (str) Title of your application
 title = رسلها
+
+# (str) Package name
 package.name = raselha
+
+# (str) Package domain (needed for android/ios packaging)
 package.domain = org.raselha
 
+# (str) Source code where the main.py live
 source.dir = .
 
-# Include fonts, json, and assets
-source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,json
+# (list) Source files to include (leave empty to include all the files)
+source.include_exts = py,png,jpg,kv,atlas,ttf
 
-# Force inclusion of assets folders
-source.include_patterns = assets/*,assets/fonts/*,assets/images/*,kv/*
+# (list) List of inclusions using pattern matching
+#source.include_patterns = assets/*,images/*.png
+source.include_patterns = assets/*,assets/fonts/*,kv/*
+# (list) Source files to exclude (leave empty to not exclude anything)
+#source.exclude_exts = spec
 
+# (list) List of directory to exclude (leave empty to not exclude anything)
+#source.exclude_dirs = tests, bin, venv
+
+# (list) List of exclusions using pattern matching
+# Do not prefix with './'
+#source.exclude_patterns = license,images/*/*.jpg
+
+# (str) Application versioning (method 1)
 version = 1.0
 
-# Avoid pinning hostpython/python versions
-requirements = python3,kivy==2.2.0,kivymd==1.1.1,pillow,pyftpdlib==1.5.9,arabic_reshaper==3.0.0,python-bidi==0.4.2,plyer==2.1.0
+# (str) Application versioning (method 2)
+# version.regex = __version__ = ['"](.*)['"]
+# version.filename = %(source.dir)s/main.py
 
+# (list) Application requirements
+# comma separated e.g. requirements = sqlite3,kivy
+requirements = python3==3.9.0,hostpython3==3.9.0,kivy==2.2.0,kivymd==1.1.1,pyftpdlib==1.5.9,arabic_reshaper==3.0.0,python-bidi==0.4.2,plyer==2.1.0
+# (str) Custom source folders for requirements
+# Sets custom source for any requirements with recipes
+# requirements.source.kivy = ../../kivy
+
+# (str) Presplash of the application
 presplash.filename = %(source.dir)s/assets/splash.jpg
+
+# (str) Icon of the application
 icon.filename = %(source.dir)s/assets/icon.png
 
+# (list) Supported orientations
+# Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
 orientation = portrait
+
+# (list) List of services to declare
+# This is currently only relevant to Android services.
+# Each service consists of a name (a valid Java class name, with the first letter capitalized)
+# followed by a colon, followed by the name of the Python script (.py file) that should be
+# launched. This is optionally followed by ":foreground" for foreground services or
+# ":foreground:sticky" for sticky foreground services. The default is a background service.
+# Bound services are not supported.
+#services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
+
+#
+# OSX Specific
+#
+osx.python_version = 3.9.10
+#
+# author = © Copyright Hamada king
+
+# Kivy version to use
+osx.kivy_version = 2.2.0
+
+#
+# Android specific
+#
+
+# (bool) Indicate if the application should be fullscreen or not
 fullscreen = 0
 
-android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE
+# (string) Presplash background color (for android toolchain)
+# Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
+# red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
+# darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
+# olive, purple, silver, teal.
+#android.presplash_color = #FFFFFF
 
-# Modern Android settings
-android.api = 33
-android.minapi = 21
+# (string) Presplash animation using Lottie format.
+# see https://lottiefiles.com/ for examples and https://airbnb.design/lottie/
+# for general documentation.
+# Lottie files can be created using various tools, like Adobe After Effect or Synfig.
+#android.presplash_lottie = "path/to/lottie/file.json"
 
-android.accept_sdk_license = True
-android.skip_update = False
+# (str) Adaptive icon of the application (used if Android API level is 26+ at runtime)
+#icon.adaptive_foreground.filename = %(source.dir)s/data/icon_fg.png
+#icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
 
-android.logcat_filters = *:S python:D
+# (list) Permissions
+# (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
+android.permissions = INTERNET,ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
-# Build both common architectures
-android.archs = arm64-v8a,armeabi-v7a
-
-android.allow_backup = True
-
-# Recommended for KivyMD
-android.enable_androidx = True
-
-[buildozer]
-log_level = 2
-warn_on_root = 1# (list) features (adds uses-feature -tags to manifest)
+# (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
