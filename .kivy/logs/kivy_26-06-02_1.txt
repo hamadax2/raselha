@@ -1,4 +1,4 @@
-[INFO   ] Logger: Record log in /storage/emulated/0/file-sharing-app/.kivy/logs/kivy_26-06-01_3.txt
+[INFO   ] Logger: Record log in /storage/emulated/0/file-sharing-app-redesign/.kivy/logs/kivy_26-06-02_1.txt
 [INFO   ] Kivy: v2.3.1
 [INFO   ] Kivy: Installed at "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/__init__.py"
 [INFO   ] Python: v3.13.2 (main, Apr 27 2025, 04:34:27) [GCC 11.4.0]
@@ -24,13 +24,7 @@
 [INFO   ] Clipboard: Provider: android
 [INFO   ] GL: NPOT texture support is available
 [WARNING] stderr: Traceback (most recent call last):
-[WARNING] stderr:   File "kivy/properties.pyx", line 961, in kivy.properties.ObservableDict.__getattr__
-[WARNING] stderr: KeyError: 'pick_btn'
-[WARNING] stderr: 
-[WARNING] stderr: During handling of the above exception, another exception occurred:
-[WARNING] stderr: 
-[WARNING] stderr: Traceback (most recent call last):
-[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app/main.py", line 161, in <module>
+[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app-redesign/main.py", line 197, in <module>
 [WARNING] stderr:     FileShareApp().run()
 [WARNING] stderr:     ~~~~~~~~~~~~~~~~~~^^
 [WARNING] stderr:   File "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/app.py", line 955, in run
@@ -38,7 +32,7 @@
 [WARNING] stderr:     ~~~~~~~~~~~~~~~~~^^
 [WARNING] stderr:   File "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/app.py", line 925, in _run_prepare
 [WARNING] stderr:     root = self.build()
-[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app/main.py", line 90, in build
+[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app-redesign/main.py", line 91, in build
 [WARNING] stderr:     self.root_widget = Builder.load_file(os.path.join(KV_DIR, "main.kv"))
 [WARNING] stderr:                        ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 [WARNING] stderr:   File "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/lang/builder.py", line 310, in load_file
@@ -48,11 +42,10 @@
 [WARNING] stderr:     child.dispatch('on_kv_post', widget)
 [WARNING] stderr:     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
 [WARNING] stderr:   File "kivy/_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
-[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app/app/screens/send_tab.py", line 31, in on_kv_post
-[WARNING] stderr:     self.refresh_text()
-[WARNING] stderr:     ~~~~~~~~~~~~~~~~~^^
-[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app/app/screens/send_tab.py", line 40, in refresh_text
-[WARNING] stderr:     self.ids.pick_btn.text = app.tr("pick_files")
-[WARNING] stderr:     ^^^^^^^^^^^^^^^^^
-[WARNING] stderr:   File "kivy/properties.pyx", line 964, in kivy.properties.ObservableDict.__getattr__
-[WARNING] stderr: AttributeError: 'super' object has no attribute '__getattr__'. Did you mean: '__setattr__'?
+[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app-redesign/app/screens/home_tab.py", line 21, in on_kv_post
+[WARNING] stderr:     self.refresh_status()
+[WARNING] stderr:     ~~~~~~~~~~~~~~~~~~~^^
+[WARNING] stderr:   File "/storage/emulated/0/file-sharing-app-redesign/app/screens/home_tab.py", line 63, in refresh_status
+[WARNING] stderr:     dot = app.root_widget.ids.get("server_dot")
+[WARNING] stderr:           ^^^^^^^^^^^^^^^
+[WARNING] stderr: AttributeError: 'FileShareApp' object has no attribute 'root_widget'. Did you mean: 'root_window'?

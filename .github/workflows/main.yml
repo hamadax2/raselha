@@ -2,7 +2,7 @@ name: Build Kivy APK Without Docker
 
 on:
   push:
-    branches: [ main ] # تأكد من مطابقة اسم فرعك الرئيسي (main أو master)
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -11,40 +11,80 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    # ── 1. Source ────────────────────────────────────────────────────────────
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Python
+    # ── 2. Python (must match hostpython3 in buildozer.spec) ─────────────────
+    - name: Set up Python 3.10
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
+    # ── 3. JDK (Gradle / aapt require JDK 17) ───────────────────────────────
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
 
-        
-    - name: Install Correct System Dependencies
+    # ── 4. System packages ───────────────────────────────────────────────────
+    - name: Install system dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y git zip unzip autoconf libtool pkg-config zlib1g-dev \
-        libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev \
-        libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev \
-        build-essential libstdc++6 aidl python3-dev
+        sudo apt-get update -qq
+        sudo apt-get install -y --no-install-recommends \
+          git zip unzip curl wget \
+          autoconf automake libtool pkg-config \
+          zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 \
+          cmake libffi-dev libssl-dev \
+          libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev \
+          build-essential libstdc++6 \
+          aidl python3-dev \
+          ccache
 
-    - name: Install Python Dependencies
+    # ── 5. Restore p4a / SDK / NDK cache (saves ~10 min on repeat runs) ──────
+    - name: Cache buildozer global directory
+      uses: actions/cache@v4
+      with:
+        path: ~/.buildozer
+        key: buildozer-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+        restore-keys: |
+          buildozer-${{ runner.os }}-
+
+    - name: Cache pip
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          pip-${{ runner.os }}-
+
+    # ── 6. Python build tools ────────────────────────────────────────────────
+    - name: Install Python build tools
       run: |
-        python -m pip install --upgrade pip
-        pip install --upgrade Cython==0.29.33 virtualenv buildozer
+        python -m pip install --upgrade pip wheel
+        pip install --upgrade Cython==0.29.33 virtualenv
+        pip install --upgrade buildozer
 
-    - name: Build APK
+    # ── 7. Build ─────────────────────────────────────────────────────────────
+    - name: Build APK (debug)
       run: |
-        buildozer android debug
+        # Increase file-descriptor limit to avoid "too many open files" errors
+        ulimit -n 65536
+        buildozer -v android debug 2>&1 | tee build.log
 
-    - name: Upload APK Artifact
+    # ── 8. Upload APK ────────────────────────────────────────────────────────
+    - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Kivy-App-APK
+        name: FileShare-APK
         path: bin/*.apk
+        if-no-files-found: error
+
+    # ── 9. Upload build log on failure (helps debugging) ────────────────────
+    - name: Upload build log on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-log
+        path: build.log

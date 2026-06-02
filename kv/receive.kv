@@ -1,39 +1,99 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
 <ReceiveTab>:
     orientation: "vertical"
-    padding: "16dp"
-    spacing: "12dp"
+    padding: ["16dp", "16dp", "16dp", "16dp"]
+    spacing: "14dp"
+    md_bg_color: get_color_from_hex("#0f1117")
 
     MDBoxLayout:
-        spacing: "12dp"
+        orientation: "vertical"
+        padding: ["20dp", "18dp", "20dp", "18dp"]
+        spacing: "14dp"
+        size_hint_y: 1
+        md_bg_color: get_color_from_hex("#1a1d27")
+        radius: [20, 20, 20, 20]
 
-        MDLabel:
-            id: files_title
-            text: "Received Files"
-            font_style: "H6"
+        # Header row
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "28dp"
 
-        MDIconButton:
-            id: refresh_btn
-            icon: "refresh"
-            on_release: root.refresh_list()
+            MDLabel:
+                id: files_title
+                text: "RECEIVED FILES"
+                font_name: "Cairo"
+                font_style: "Caption"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#00d4aa")
+                size_hint_x: 1
 
-    MDLabel:
-        id: folder_value
-        text: ""
-        font_style: "Caption"
-        theme_text_color: "Hint"
+            MDLabel:
+                id: file_count_badge
+                text: ""
+                font_style: "Caption"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#00d4aa")
+                size_hint_x: None
+                width: "40dp"
+                halign: "right"
 
-    MDCard:
-        radius: [16, 16, 16, 16]
-        elevation: 2
-        padding: "4dp"
+            MDIconButton:
+                id: refresh_btn
+                icon: "refresh"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#00d4aa")
+                size_hint: None, None
+                size: "36dp", "36dp"
+                pos_hint: {"center_y": 0.5}
+                on_release: root.refresh_list()
 
+        # Folder path bar
+        MDBoxLayout:
+            orientation: "horizontal"
+            padding: ["10dp", "6dp", "10dp", "6dp"]
+            spacing: "8dp"
+            size_hint_y: None
+            height: "32dp"
+            md_bg_color: get_color_from_hex("#22263a")
+            radius: [8, 8, 8, 8]
+
+            MDIcon:
+                icon: "folder-outline"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#4a5278")
+                size_hint: None, None
+                size: "16dp", "16dp"
+                pos_hint: {"center_y": 0.5}
+
+            MDLabel:
+                id: folder_value
+                text: "~/FileShare/"
+                font_style: "Caption"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#4a5278")
+                shorten: True
+                shorten_from: "left"
+
+        # Empty state
         MDLabel:
             id: empty_label
-            text: "No files yet"
+            text: "No files received yet"
             halign: "center"
-            theme_text_color: "Hint"
+            font_name: "Cairo"
+            theme_text_color: "Custom"
+            text_color: get_color_from_hex("#4a5278")
             opacity: 1
+            size_hint_y: None
+            height: "60dp"
 
+        # File list
         ScrollView:
+            size_hint_y: 1
+            do_scroll_x: False
             MDList:
                 id: files_list
+                spacing: "4dp"

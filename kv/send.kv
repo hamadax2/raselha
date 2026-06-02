@@ -1,64 +1,178 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
 <SendTab>:
     orientation: "vertical"
-    padding: "16dp"
-    spacing: "16dp"
+    padding: ["16dp", "16dp", "16dp", "16dp"]
+    spacing: "14dp"
+    md_bg_color: get_color_from_hex("#0f1117")
 
-    MDCard:
+    # ── Connect ────────────────────────────────────────────────
+    MDBoxLayout:
         orientation: "vertical"
-        padding: "20dp"
-        spacing: "12dp"
+        padding: ["20dp", "18dp", "20dp", "18dp"]
+        spacing: "14dp"
         size_hint_y: None
         height: self.minimum_height
-        radius: [16, 16, 16, 16]
-        elevation: 2
+        md_bg_color: get_color_from_hex("#1a1d27")
+        radius: [20, 20, 20, 20]
 
         MDLabel:
             id: connect_title
-            text: "Connect To A Device"
-            font_style: "H6"
-
-        MDTextField:
-            id: host_field
-            hint_text: "Receiver IP Address"
-            mode: "rectangle"
-
-        MDTextField:
-            id: port_field
-            hint_text: "Port"
-            text: "2121"
-            mode: "rectangle"
-            input_filter: "int"
+            text: "CONNECT TO DEVICE"
+            font_name: "Cairo"
+            font_style: "Caption"
+            bold: True
+            theme_text_color: "Custom"
+            text_color: get_color_from_hex("#00d4aa")
+            size_hint_y: None
+            height: self.texture_size[1]
 
         MDBoxLayout:
-            spacing: "12dp"
+            orientation: "vertical"
+            spacing: "6dp"
+            size_hint_y: None
+            height: self.minimum_height
 
-            MDRaisedButton:
-                id: pick_btn
-                text: "Pick Files"
-                on_release: root.open_file_manager()
-
-            MDRaisedButton:
-                id: send_btn
-                text: "Send Files"
-                on_release: root.send()
-
-    MDCard:
-        orientation: "vertical"
-        padding: "20dp"
-        spacing: "8dp"
-        radius: [16, 16, 16, 16]
-        elevation: 2
-
-        MDLabel:
-            id: selected_title
-            text: "Selected Files"
-            font_style: "Subtitle1"
-            bold: True
-
-        ScrollView:
             MDLabel:
-                id: selection_label
-                text: "No files selected yet"
-                theme_text_color: "Hint"
+                text: "RECEIVER IP"
+                font_style: "Caption"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#4a5278")
+                size_hint_y: None
+                height: "16dp"
+
+            MDTextField:
+                id: host_field
+                hint_text: "e.g. 192.168.43.1"
+                mode: "rectangle"
+                font_name: "Cairo"
+                line_color_normal: get_color_from_hex("#2a2f45")
+                line_color_focus: get_color_from_hex("#00d4aa")
+                text_color_normal: get_color_from_hex("#e8eaf6")
+                text_color_focus: get_color_from_hex("#e8eaf6")
+                hint_text_color_normal: get_color_from_hex("#4a5278")
+                fill_color_normal: get_color_from_hex("#22263a")
+                fill_color_focus: get_color_from_hex("#22263a")
+
+        MDBoxLayout:
+            orientation: "vertical"
+            spacing: "6dp"
+            size_hint_y: None
+            height: self.minimum_height
+
+            MDLabel:
+                text: "PORT"
+                font_style: "Caption"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#4a5278")
+                size_hint_y: None
+                height: "16dp"
+
+            MDTextField:
+                id: port_field
+                hint_text: "2121"
+                text: "2121"
+                mode: "rectangle"
+                font_name: "Cairo"
+                input_filter: "int"
+                line_color_normal: get_color_from_hex("#2a2f45")
+                line_color_focus: get_color_from_hex("#00d4aa")
+                text_color_normal: get_color_from_hex("#e8eaf6")
+                text_color_focus: get_color_from_hex("#e8eaf6")
+                hint_text_color_normal: get_color_from_hex("#4a5278")
+                fill_color_normal: get_color_from_hex("#22263a")
+                fill_color_focus: get_color_from_hex("#22263a")
+
+    # ── Files ──────────────────────────────────────────────────
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: ["20dp", "18dp", "20dp", "18dp"]
+        spacing: "14dp"
+        size_hint_y: 1
+        md_bg_color: get_color_from_hex("#1a1d27")
+        radius: [20, 20, 20, 20]
+
+        # Header
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "28dp"
+
+            MDLabel:
+                id: selected_title
+                text: "SELECTED FILES"
+                font_name: "Cairo"
+                font_style: "Caption"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#00d4aa")
+
+            MDLabel:
+                id: file_count_label
+                text: ""
+                halign: "right"
+                font_style: "Caption"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#00d4aa")
+
+        # Pick zone (tap to open file manager)
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: "90dp"
+            md_bg_color: get_color_from_hex("#22263a")
+            radius: [14, 14, 14, 14]
+            on_touch_up: root.open_file_manager() if self.collide_point(*args[1].pos) else None
+
+            MDIcon:
+                id: pick_btn
+                icon: "folder-open-outline"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#00d4aa")
+                halign: "center"
+                size_hint_y: None
+                height: "36dp"
+                pos_hint: {"center_x": 0.5}
+
+            MDLabel:
+                id: pick_label
+                text: "Tap to pick files"
+                font_name: "Cairo"
+                font_style: "Caption"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#8892b0")
+                halign: "center"
                 size_hint_y: None
                 height: self.texture_size[1]
+
+        # File list
+        ScrollView:
+            size_hint_y: 1
+            do_scroll_x: False
+            MDList:
+                id: selection_list
+
+        # Progress bar
+        MDProgressBar:
+            id: send_progress
+            value: 0
+            color: get_color_from_hex("#00d4aa")
+            size_hint_y: None
+            height: "6dp"
+            opacity: 0
+
+        # Send button
+        MDRaisedButton:
+            id: send_btn
+            text: "Send Files"
+            font_name: "Cairo"
+            bold: True
+            size_hint_x: 1
+            md_bg_color: get_color_from_hex("#00d4aa")
+            theme_text_color: "Custom"
+            text_color: get_color_from_hex("#0a0f1e")
+            elevation: 0
+            on_release: root.send()

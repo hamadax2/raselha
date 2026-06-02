@@ -1,48 +1,94 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
 MDScreen:
+    md_bg_color: get_color_from_hex("#0f1117")
+
     MDBoxLayout:
         orientation: "vertical"
 
-        MDTopAppBar:
+        # ── Top Bar ──────────────────────────────────────────
+        MDBoxLayout:
             id: top_bar
-            title: "File Share"
-            elevation: 3
-            pos_hint: {"top": 1}
-            font_name: "Cairo"
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "60dp"
+            padding: ["20dp", "10dp", "20dp", "0dp"]
+            spacing: "8dp"
+            md_bg_color: get_color_from_hex("#0f1117")
 
-        MDBottomNavigation:
-            id: bottom_nav
-            panel_color: app.theme_cls.primary_color
-            selected_color_background: app.theme_cls.primary_dark
-            text_color_active: 1, 1, 1, 1
+            MDLabel:
+                id: top_title
+                text: "FileShare"
+                font_name: "Cairo"
+                font_style: "H5"
+                bold: True
+                size_hint_x: 1
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#00d4aa")
 
-            MDBottomNavigationItem:
-                id: nav_home
-                name: "home"
-                text: "Server"
-                icon: "server-network"
+            MDIcon:
+                id: server_dot
+                icon: "circle"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#4a5278")
+                size_hint: None, None
+                size: "16dp", "16dp"
+                pos_hint: {"center_y": 0.5}
+
+        # ── Screens ──────────────────────────────────────────
+        ScreenManager:
+            id: screen_manager
+
+            Screen:
+                name: "server"
                 HomeTab:
                     id: home_tab
 
-            MDBottomNavigationItem:
-                id: nav_send
+            Screen:
                 name: "send"
-                text: "Send"
-                icon: "send"
                 SendTab:
                     id: send_tab
 
-            MDBottomNavigationItem:
-                id: nav_receive
+            Screen:
                 name: "receive"
-                text: "Files"
-                icon: "folder-download"
                 ReceiveTab:
                     id: receive_tab
 
-            MDBottomNavigationItem:
-                id: nav_settings
+            Screen:
                 name: "settings"
-                text: "Settings"
-                icon: "cog"
                 SettingsTab:
                     id: settings_tab
+
+        # ── Bottom Navigation ─────────────────────────────────
+        MDBoxLayout:
+            id: bottom_nav
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "64dp"
+            padding: ["0dp", "4dp", "0dp", "4dp"]
+            md_bg_color: get_color_from_hex("#1a1d27")
+
+            NavItem:
+                id: nav_server
+                nav_icon: "server-network"
+                nav_text: "Server"
+                tab_name: "server"
+                active: True
+
+            NavItem:
+                id: nav_send
+                nav_icon: "send"
+                nav_text: "Send"
+                tab_name: "send"
+
+            NavItem:
+                id: nav_receive
+                nav_icon: "folder-download"
+                nav_text: "Files"
+                tab_name: "receive"
+
+            NavItem:
+                id: nav_settings
+                nav_icon: "cog"
+                nav_text: "Settings"
+                tab_name: "settings"

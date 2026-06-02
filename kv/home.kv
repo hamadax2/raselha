@@ -1,67 +1,176 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+# Rounded-box helper – drawn purely on canvas, no MDCard shadow bug
+<DarkBox@MDBoxLayout>:
+    md_bg_color: get_color_from_hex("#1a1d27")
+    radius: [20, 20, 20, 20]
+    padding: ["20dp", "18dp", "20dp", "18dp"]
+    spacing: "14dp"
+
 <HomeTab>:
     orientation: "vertical"
-    padding: "16dp"
-    spacing: "16dp"
+    padding: ["16dp", "16dp", "16dp", "16dp"]
+    spacing: "14dp"
+    md_bg_color: get_color_from_hex("#0f1117")
 
-    MDCard:
+    # ── Server Control ────────────────────────────────────────
+    DarkBox:
         orientation: "vertical"
-        padding: "20dp"
-        spacing: "12dp"
         size_hint_y: None
         height: self.minimum_height
-        radius: [16, 16, 16, 16]
-        elevation: 2
 
         MDLabel:
             id: section_status
-            text: "Server Status"
-            font_style: "H6"
-
-        MDLabel:
-            id: status_value
-            text: "Server Stopped"
-            font_style: "Subtitle1"
+            text: "SERVER CONTROL"
+            font_name: "Cairo"
+            font_style: "Caption"
             bold: True
+            theme_text_color: "Custom"
+            text_color: get_color_from_hex("#00d4aa")
+            size_hint_y: None
+            height: self.texture_size[1]
 
-        MDRaisedButton:
-            id: toggle_btn
-            text: "Start Server"
-            pos_hint: {"center_x": 0.5}
-            on_release: root.toggle_server()
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: "12dp"
+            size_hint_y: None
+            height: "44dp"
 
-    MDCard:
+            MDBoxLayout:
+                orientation: "horizontal"
+                spacing: "10dp"
+                size_hint_x: 1
+
+                MDIcon:
+                    id: status_icon
+                    icon: "circle"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#ff4d6d")
+                    size_hint: None, None
+                    size: "14dp", "14dp"
+                    pos_hint: {"center_y": 0.5}
+
+                MDLabel:
+                    id: status_value
+                    text: "Server Stopped"
+                    font_name: "Cairo"
+                    font_style: "Subtitle1"
+                    bold: True
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#ff4d6d")
+
+            MDRaisedButton:
+                id: toggle_btn
+                text: "Start"
+                font_name: "Cairo"
+                bold: True
+                size_hint_x: None
+                width: "110dp"
+                md_bg_color: get_color_from_hex("#00d4aa")
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#0a0f1e")
+                elevation: 0
+                on_release: root.toggle_server()
+
+    # ── Network Info ──────────────────────────────────────────
+    DarkBox:
         orientation: "vertical"
-        padding: "20dp"
-        spacing: "10dp"
         size_hint_y: None
         height: self.minimum_height
-        radius: [16, 16, 16, 16]
-        elevation: 2
+
+        MDLabel:
+            id: ip_label
+            text: "NETWORK INFO"
+            font_name: "Cairo"
+            font_style: "Caption"
+            bold: True
+            theme_text_color: "Custom"
+            text_color: get_color_from_hex("#00d4aa")
+            size_hint_y: None
+            height: self.texture_size[1]
 
         MDBoxLayout:
-            spacing: "8dp"
-            MDLabel:
-                id: ip_label
-                text: "Your IP Address"
-            MDLabel:
-                id: ip_value
-                text: "0.0.0.0"
-                halign: "right"
-                bold: True
+            orientation: "horizontal"
+            spacing: "12dp"
+            size_hint_y: None
+            height: "80dp"
 
-        MDBoxLayout:
-            spacing: "8dp"
-            MDLabel:
-                id: port_label
-                text: "Port"
-            MDLabel:
-                id: port_value
-                text: "2121"
-                halign: "right"
-                bold: True
+            # IP cell
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: ["14dp", "14dp", "14dp", "14dp"]
+                spacing: "6dp"
+                md_bg_color: get_color_from_hex("#22263a")
+                radius: [14, 14, 14, 14]
 
-    MDLabel:
-        id: hint_label
-        text: ""
-        font_style: "Caption"
-        theme_text_color: "Hint"
+                MDLabel:
+                    text: "IP ADDRESS"
+                    font_style: "Caption"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#4a5278")
+                    bold: True
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDLabel:
+                    id: ip_value
+                    text: "0.0.0.0"
+                    font_name: "Cairo"
+                    bold: True
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#e8eaf6")
+
+            # Port cell
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: ["14dp", "14dp", "14dp", "14dp"]
+                spacing: "6dp"
+                md_bg_color: get_color_from_hex("#22263a")
+                radius: [14, 14, 14, 14]
+
+                MDLabel:
+                    text: "PORT"
+                    font_style: "Caption"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#4a5278")
+                    bold: True
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDLabel:
+                    id: port_value
+                    text: "2121"
+                    font_name: "Cairo"
+                    bold: True
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#e8eaf6")
+
+    # ── Hint ──────────────────────────────────────────────────
+    MDBoxLayout:
+        orientation: "horizontal"
+        padding: ["16dp", "14dp", "16dp", "14dp"]
+        spacing: "12dp"
+        size_hint_y: None
+        height: self.minimum_height
+        md_bg_color: get_color_from_hex("#00d4aa18")
+        radius: [14, 14, 14, 14]
+
+        MDIcon:
+            icon: "lightbulb-on-outline"
+            theme_text_color: "Custom"
+            text_color: get_color_from_hex("#00d4aa")
+            size_hint: None, None
+            size: "24dp", "24dp"
+            pos_hint: {"top": 1}
+
+        MDLabel:
+            id: hint_label
+            text: ""
+            font_name: "Cairo"
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: get_color_from_hex("#8892b0")
+            size_hint_y: None
+            height: self.texture_size[1]
+
+    Widget:

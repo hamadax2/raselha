@@ -1,117 +1,228 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
 <SettingsTab>:
     orientation: "vertical"
+    md_bg_color: get_color_from_hex("#0f1117")
 
     ScrollView:
+        do_scroll_x: False
+
         MDBoxLayout:
             orientation: "vertical"
-            padding: "16dp"
-            spacing: "16dp"
+            padding: ["16dp", "16dp", "16dp", "16dp"]
+            spacing: "14dp"
             adaptive_height: True
 
-            MDLabel:
-                id: settings_title
-                text: "Settings"
-                font_style: "H5"
-
-            # Language
-            MDCard:
+            # ── Language ───────────────────────────────────────
+            MDBoxLayout:
                 orientation: "vertical"
-                padding: "20dp"
-                spacing: "12dp"
+                padding: ["20dp", "18dp", "20dp", "18dp"]
+                spacing: "14dp"
                 size_hint_y: None
                 height: self.minimum_height
-                radius: [16, 16, 16, 16]
-                elevation: 2
+                md_bg_color: get_color_from_hex("#1a1d27")
+                radius: [20, 20, 20, 20]
 
                 MDLabel:
                     id: language_label
-                    text: "Language"
-                    font_style: "Subtitle1"
+                    text: "LANGUAGE"
+                    font_name: "Cairo"
+                    font_style: "Caption"
                     bold: True
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#00d4aa")
+                    size_hint_y: None
+                    height: self.texture_size[1]
 
                 MDBoxLayout:
-                    spacing: "12dp"
-
-                    MDRaisedButton:
-                        id: btn_ar
-                        text: "Arabic"
-                        on_release: root.set_language("ar")
+                    orientation: "horizontal"
+                    spacing: "10dp"
+                    size_hint_y: None
+                    height: "48dp"
 
                     MDRaisedButton:
                         id: btn_en
                         text: "English"
+                        font_name: "Cairo"
+                        bold: True
+                        size_hint_x: 1
+                        md_bg_color: get_color_from_hex("#00d4aa22")
+                        theme_text_color: "Custom"
+                        text_color: get_color_from_hex("#8892b0")
+                        elevation: 0
                         on_release: root.set_language("en")
 
-            # Appearance
-            MDCard:
+                    MDRaisedButton:
+                        id: btn_ar
+                        text: "العربية"
+                        font_name: "Cairo"
+                        bold: True
+                        size_hint_x: 1
+                        md_bg_color: get_color_from_hex("#22263a")
+                        theme_text_color: "Custom"
+                        text_color: get_color_from_hex("#8892b0")
+                        elevation: 0
+                        on_release: root.set_language("ar")
+
+            # ── Appearance ─────────────────────────────────────
+            MDBoxLayout:
                 orientation: "vertical"
-                padding: "20dp"
-                spacing: "8dp"
+                padding: ["20dp", "18dp", "20dp", "18dp"]
+                spacing: "14dp"
                 size_hint_y: None
                 height: self.minimum_height
-                radius: [16, 16, 16, 16]
-                elevation: 2
+                md_bg_color: get_color_from_hex("#1a1d27")
+                radius: [20, 20, 20, 20]
 
                 MDLabel:
                     id: appearance_label
-                    text: "Appearance"
-                    font_style: "Subtitle1"
+                    text: "APPEARANCE"
+                    font_name: "Cairo"
+                    font_style: "Caption"
                     bold: True
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#00d4aa")
+                    size_hint_y: None
+                    height: self.texture_size[1]
 
                 MDBoxLayout:
-                    spacing: "8dp"
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: "48dp"
 
-                    MDLabel:
-                        id: dark_label
-                        text: "Dark Mode"
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        spacing: "2dp"
+                        size_hint_x: 1
+
+                        MDLabel:
+                            id: dark_label
+                            text: "Dark Mode"
+                            font_name: "Cairo"
+                            font_style: "Subtitle2"
+                            theme_text_color: "Custom"
+                            text_color: get_color_from_hex("#e8eaf6")
+
+                        MDLabel:
+                            text: "Use dark background"
+                            font_style: "Caption"
+                            theme_text_color: "Custom"
+                            text_color: get_color_from_hex("#4a5278")
 
                     MDSwitch:
                         id: dark_switch
                         pos_hint: {"center_y": 0.5}
+                        size_hint_x: None
+                        width: "60dp"
                         on_active: root.toggle_dark(self.active)
 
-            # Network
-            MDCard:
+            # ── Network ────────────────────────────────────────
+            MDBoxLayout:
                 orientation: "vertical"
-                padding: "20dp"
-                spacing: "8dp"
+                padding: ["20dp", "18dp", "20dp", "18dp"]
+                spacing: "14dp"
                 size_hint_y: None
                 height: self.minimum_height
-                radius: [16, 16, 16, 16]
-                elevation: 2
+                md_bg_color: get_color_from_hex("#1a1d27")
+                radius: [20, 20, 20, 20]
 
                 MDLabel:
                     id: network_label
-                    text: "Network"
-                    font_style: "Subtitle1"
+                    text: "NETWORK"
+                    font_name: "Cairo"
+                    font_style: "Caption"
                     bold: True
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#00d4aa")
+                    size_hint_y: None
+                    height: self.texture_size[1]
 
-                MDTextField:
-                    id: port_field
-                    hint_text: "Server Port"
-                    text: "2121"
-                    mode: "rectangle"
-                    input_filter: "int"
-                    on_text: root.on_port(self.text)
+                MDBoxLayout:
+                    orientation: "vertical"
+                    spacing: "6dp"
+                    size_hint_y: None
+                    height: self.minimum_height
 
-            # About
-            MDCard:
+                    MDLabel:
+                        text: "SERVER PORT"
+                        font_style: "Caption"
+                        bold: True
+                        theme_text_color: "Custom"
+                        text_color: get_color_from_hex("#4a5278")
+                        size_hint_y: None
+                        height: "16dp"
+
+                    MDTextField:
+                        id: port_field
+                        hint_text: "2121"
+                        text: "2121"
+                        mode: "rectangle"
+                        font_name: "Cairo"
+                        input_filter: "int"
+                        line_color_normal: get_color_from_hex("#2a2f45")
+                        line_color_focus: get_color_from_hex("#00d4aa")
+                        text_color_normal: get_color_from_hex("#e8eaf6")
+                        text_color_focus: get_color_from_hex("#e8eaf6")
+                        hint_text_color_normal: get_color_from_hex("#4a5278")
+                        fill_color_normal: get_color_from_hex("#22263a")
+                        fill_color_focus: get_color_from_hex("#22263a")
+                        on_text: root.on_port(self.text)
+
+            # ── About ──────────────────────────────────────────
+            MDBoxLayout:
                 orientation: "vertical"
-                padding: "20dp"
-                spacing: "8dp"
+                padding: ["20dp", "18dp", "20dp", "18dp"]
+                spacing: "10dp"
                 size_hint_y: None
                 height: self.minimum_height
-                radius: [16, 16, 16, 16]
-                elevation: 2
+                md_bg_color: get_color_from_hex("#00d4aa0e")
+                radius: [20, 20, 20, 20]
 
                 MDLabel:
                     id: about_label
-                    text: "About"
-                    font_style: "Subtitle1"
+                    text: "ABOUT"
+                    font_name: "Cairo"
+                    font_style: "Caption"
                     bold: True
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#00d4aa")
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDLabel:
+                    text: "FileShare"
+                    font_name: "Cairo"
+                    font_style: "H5"
+                    bold: True
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#00d4aa")
+                    size_hint_y: None
+                    height: self.texture_size[1]
 
                 MDLabel:
                     id: about_value
                     text: ""
+                    font_name: "Cairo"
                     font_style: "Body2"
-                    theme_text_color: "Hint"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#8892b0")
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    padding: ["10dp", "4dp", "10dp", "4dp"]
+                    size_hint_y: None
+                    height: "28dp"
+                    size_hint_x: None
+                    width: "200dp"
+                    md_bg_color: get_color_from_hex("#00d4aa18")
+                    radius: [8, 8, 8, 8]
+
+                    MDLabel:
+                        text: "FTP  ·  Kivy  ·  KivyMD"
+                        font_style: "Caption"
+                        bold: True
+                        theme_text_color: "Custom"
+                        text_color: get_color_from_hex("#00d4aa")
+                        halign: "center"

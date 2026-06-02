@@ -1,4 +1,4 @@
-[INFO   ] Logger: Record log in /storage/emulated/0/file-sharing-app/.kivy/logs/kivy_26-06-01_2.txt
+[INFO   ] Logger: Record log in /storage/emulated/0/file-sharing-app-redesign/.kivy/logs/kivy_26-06-02_3.txt
 [INFO   ] Kivy: v2.3.1
 [INFO   ] Kivy: Installed at "/data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/kivy/__init__.py"
 [INFO   ] Python: v3.13.2 (main, Apr 27 2025, 04:34:27) [GCC 11.4.0]
@@ -25,5 +25,21 @@
 [INFO   ] GL: NPOT texture support is available
 [WARNING] Base: Unknown <android> provider
 [INFO   ] Base: Start application main loop
-[WARNING] Deprecated property "<NumericProperty name=width_mult>" of object "<kivymd.uix.toolbar.toolbar.OverFlowMenu object at 0x75ba1d91d0>" has been set, it will be removed in a future version
+[WARNING] Deprecated property "<NumericProperty name=width_mult>" of object "<kivymd.uix.toolbar.toolbar.OverFlowMenu object at 0x75ba07c670>" has been set, it will be removed in a future version
+[WARNING] stderr: /data/user/0/ru.iiec.pydroid3/files/aarch64-linux-android/lib/python3.13/site-packages/pyftpdlib/authorizers.py:99: RuntimeWarning: write permissions assigned to anonymous user.
+[WARNING] stderr:   self._check_permissions(username, perm)
+[INFO   ] concurrency model: async
+[INFO   ] masquerade (NAT) address: None
+[INFO   ] passive ports: 60000->60009
+[DEBUG  ] poller: 'pyftpdlib.ioloop.Epoll'
+[DEBUG  ] authorizer: 'pyftpdlib.authorizers.DummyAuthorizer'
+[DEBUG  ] use sendfile(): True
+[DEBUG  ] handler: 'pyftpdlib.handlers.ftp.control.type'
+[DEBUG  ] max connections: 64
+[DEBUG  ] max connections per ip: 16
+[DEBUG  ] timeout: 300
+[DEBUG  ] banner: 'File Share FTP server ready.'
+[DEBUG  ] max login attempts: 3
+[INFO   ] >>> starting FTP server on 0.0.0.0:2121, pid=20734 <<<
+[DEBUG  ] [debug] closing IOLoop (<pyftpdlib.ioloop.Epoll (fds=1, tasks=0) at 0x75b8c91be0>)
 [INFO   ] Base: Leaving application in progress...
