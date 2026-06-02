@@ -71,14 +71,16 @@ jobs:
       run: |
         # Increase file-descriptor limit to avoid "too many open files" errors
         ulimit -n 65536
-        buildozer -v android debug 
+        buildozer -v android debug 2>&1 | tee build.log
 
     # ── 8. Upload APK ────────────────────────────────────────────────────────
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: FileShare-APK
-        path: bin/*.apk
+        path:
+         bin/**/*.apk
+         bin/**/*.aab
         if-no-files-found: error
 
     # ── 9. Upload build log on failure (helps debugging) ────────────────────
