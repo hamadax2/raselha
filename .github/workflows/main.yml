@@ -77,7 +77,7 @@ jobs:
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
-        name: FileShare-APK
+        name: MY-APK
         path: |
          **/*.apk
     
