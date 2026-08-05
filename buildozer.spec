@@ -6,19 +6,19 @@
 [app]
 
 # (str) Title of your application
-title = رسلها
+title = Base64 ترميز
 
 # (str) Package name
-package.name = raselha
+package.name = base64
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.raselha
+package.domain = org.msa.base64
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (leave empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,ttf
+source.include_exts = py,png,jpg,kv,atlas,ttf,otf
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -472,3 +472,4 @@ warn_on_root = 1
 #        buildozer --profile demo android debug
 #
 #   Environment variable overrides have priority over profile overrides.
+
